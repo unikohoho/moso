@@ -156,7 +156,7 @@ label {
 }
 
 /* 못생긴 기존 input 숨기기 */
-#image {
+#filee {
   visibility: hidden;
   position:absolute;
   top:0%;

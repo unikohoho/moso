@@ -1,15 +1,48 @@
-{% extends "index.html" %}
 <html>
-    {% block head %}
     <head>
         <div style="width :1250px;"></div>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/register_restaurant.css')}}">
         <script src="{{ url_for('static', filename = 'js/register_restaurant.js')}}"></script>
-        {% endblock head %}
     </head>
 
 <body>
-  {% block body %}
+  <nav style="position:absolute; z-index:10;">
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <img src="{{url_for('static', filename='image/profile.png')}}" width="100px" height="100px" style="position:absolute; top:70px; left:25%">
+        <h1>로그인이 필요합니다.</h1>
+        <hr class="hr1"/>
+        <button type="button" onclick="location.href='/login';" style="top:250px; height:40px"> 로그인 </button>
+        <button type="button" onclick="location.href='/signup';" style="top:300px; height:40px"> 회원가입 </button>
+        <a href="/view_restaurantlist" style="position:absolute; left:8px">맛집 조회</a>
+        <a href="/register_restaurant" style="position:absolute; top:435px; left:8px">맛집 등록</a>
+        <p></p>
+        <a href="map.html" style="position:absolute; top:485px; left:8px">맛집 지도</a>
+        <a href="recommend.html" style="position:absolute; top:520px; left:8px">맛집 추천</a>
+    </div>
+
+    <div id = "menu">
+      <a onclick="openNav()"><img src="{{url_for('static', filename='image/vector.png')}}" height="77px"
+        style="position:absolute; top:0%; left:0%"></a></div>
+      <a href="/index"><h2> EAT:WHA </h2></a>
+
+          <!--로그인 성공했을 때-->
+        <!--<div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <img src="profile2.png" width="100px" height="105px" style="position:absolute; top:70px; left:25%">
+            <h1><b>김이화</b>님 환영합니다.</h1>
+            <hr class="hr1"/>
+            <a href="mypage.html" style="position:absolute; left:8px; top:260px">마이페이지</a>
+            <a href="#" style="position:absolute; left:23px; top:290px; font-size: 14px;">-로그아웃</a>
+            <a href="#" style="position:absolute; left:23px; top:317px; font-size: 14px;">-즐겨찾기 목록</a>
+            <a href="#" style="position:absolute; left:23px; top:344px; font-size: 14px;">-회원정보 수정</a>
+            <a href="view_restaurantlist.html" style="position:absolute; left:8px">맛집 조회</a>
+            <a href="register_restaurant.html" style="position:absolute; top:435px; left:8px">맛집 등록</a>
+            <p></p>
+            <a href="map.html" style="position:absolute; top:485px; left:8px">맛집 지도</a>
+            <a href="recommend.html" style="position:absolute; top:520px; left:8px">맛집 추천</a>
+        </div>-->
+    </nav>
 
     <div class="card">
         <h2 style="position:absolute;
@@ -56,33 +89,38 @@
 
                 <h1><div style="position:absolute; left:3%; top:63%;">
                     4. 음식 카테고리 설정</div></h1>
-
+                
+        
                 <div style="position:absolute; left:3%; top:70%; color:white">
-                    <input type="radio" class="radio" id="category" name="category" value="한식"><span>한식</span></div>
+                    <input type="checkbox" class="radio" id="category" name="category" value="한식" onclick="NoMultiChk(this)"><span>한식</span></div>
 
                 <div style="position:absolute; left:10%; top:70%; color:white">
-                    <input type="radio" class="radio" id="category" name="category" value="중식"><span>중식</span></div>
+                    <input type="checkbox" class="radio" id="category" name="category" value="중식" onclick="NoMultiChk(this)"><span>중식</span></div>
 
                 <div style="position:absolute; left:17%; top:70%; color:white">
-                    <input type="radio" class="radio" id="category" name="category" value="일식"><span>일식</span></div>
+                    <input type="checkbox" class="radio" id="category" name="category" value="일식" onclick="NoMultiChk(this)"><span>일식</span></div>
 
                 <div style="position:absolute; left:24%; top:70%; color:white">
-                    <input type="radio" class="radio" id="category" name="category" value="양식"><span>양식</span></div>
+                    <input type="checkbox" class="radio" id="category" name="category" value="양식" onclick="NoMultiChk(this)"><span>양식</span></div>
 
                 <div style="position:absolute; left:3%; top:75%; color:white">
-                    <input type="radio" class="radio" id="category" name="category" value="분식"><span>분식</span></div>
+                    <input type="checkbox" class="radio" id="category" name="category" value="분식" onclick="NoMultiChk(this)"><span>분식</span></div>
 
                 <div style="position:absolute; left:10%; top:75%; color:white">
-                    <input type="radio" class="radio" id="category" name="category" value="카페/디저트"><span>카페/디저트</span></div>
+                    <input type="checkbox" class="radio" id="category" name="category" value="카페/디저트" onclick="NoMultiChk(this)"><span>카페/디저트</span></div>
+
+                <div style="position:absolute; left:21%; top:75%; color:white">
+                    <input type="checkbox" class="radio" id="category" name="category" value="선택완료(필수체크)" required><span>선택완료(필수체크)</span></div>
+                
 
                 <h1><div style="position:absolute; left:3%; top:85%;">
                     5. 주차/예약 가능 여부 (가능 시 체크하세요.)</div></h1>
 
                 <div style="position:absolute; left:3%; top:92%; color:white">
-                    <input type="radio" class="radio" id="park" name="park" value="available"><span>주차 가능</span></div>
+                    <input type="checkbox" class="radio" id="park" name="park" value="available"><span>주차 가능</span></div>
 
                 <div style="position:absolute; left:12%; top:92%; color:white">
-                    <input type="radio" class="radio" id="reserve" name="reserve" value="available"><span>예약 가능</span></div>
+                    <input type="checkbox" class="radio" id="reserve" name="reserve" value="available"><span>예약 가능</span></div>
 
 
 
@@ -93,52 +131,43 @@
                     <input type="text" class="input-field2" id="monToSun" name="monToSun" placeholder="요일 입력(ex:월-토)" required></div>
 
                 <div style="position:absolute; left:51%; top:19%;">
-                    <input type="time" class= "input-field2" id="open" name="open" ></div>
+                    <input type="time" class= "input-field2" id="open" name="open" required></div>
 
                 <h1><div style="position:absolute; left:67%; top:21.5%; font-size:18px;">
                     시작</div></h1>
 
                 <div style="position:absolute; left:71%; top:19%;">
-                    <input type="time" class= "input-field2" id="close" name="close" ></div>
+                    <input type="time" class= "input-field2" id="close" name="close" required></div>
 
                 <h1><div style="position:absolute; left:86.5%; top:21.5%; font-size:18px;">
                     종료</div></h1>
 
                 <h1><div style="position:absolute; left:91%; top:21%; font-size:17px;">
-                    <button type="submit">추가
+                    <button type="button" onclick="add()">추가
                     </div></h1>
 
                 <div style="position:absolute; left:51%; top:30%; color:white;
-                border-bottom: 1px solid white; font-size:18px; padding: 10px 0;">
-                    </div>
+                border-bottom: 1px solid white; font-size:18px; padding: 0px 0;">
+                    <p id="text" style="margin-bottom:4"></p></div>
 
                 <h1><div style="position:absolute; left:51%; top:44%;">
                     7. 업체사진 등록</div></h1>
 
                 <div style="position:absolute; left:52%; top:48%; ">
                         <div class="button">
-                            <label for="image">
+                            <label for="file">
                                 <p style="border-bottom: 1px solid white; color:white; font-size:18px;
-                                position:absolute; left:320px; width:80px; top:0%">파일 열기</p>
+                                position:absolute; left:370px; width:80px; top:0%">파일열기</p>
                             </label>
                         </div>
-                        <input type="file" id="file" name="file" accept="image/*" onchange="setThumbnail(event);"/>
+                        <input type="file" id="file" name="file" accept="image/*" onchange="setThumbnail(event);" required/>
                 <div id="image_container"></div>
                 </div>
 
-                <h1><div style="position:absolute; left:51%; top:76%;">
-                    8. 음식메뉴 등록</div></h1>
-
-                <h1><div style="position:absolute; left:51.5%; top:82.2%; font-size: 16;">
-                    등록하고자 하는 맛집의 메인 메뉴를 선정하는 목록입니다.</div></h1>
-
-                <h1><div style="position:absolute; left:52%; top:88%;">
-                    <button type="button" onclick="location.href='/register_mainmenu';" style="font-size:17px; width:170px;
-                    height:35px ">메뉴 등록하러 가기
-                    </div></h1>
+                
 
                 <h1><div style="position:absolute; left:84%; bottom:1.5%;">
-                    <button type="submit" onclick="location.href='/result'" style="font-size:17px; width:170px;
+                    <button type="submit" onclick="review()" style="font-size:17px; width:170px;
                     height:35px ">등록 완료하기
                     </div></h1>
             </form>
@@ -146,6 +175,6 @@
 
     </div>
 
-{% endblock body%}
+
 </body>
 </html>

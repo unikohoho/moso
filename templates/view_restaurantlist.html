@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+<html>
+    <head>
+      {% block head %}
+        <div style="width :1250px;"></div>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/view_restaurantlist.css')}}">
+        <script src="{{ url_for('static', filename = 'js/view_restaurantlist.js')}}"></script>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        {% endblock head %}
+      </head>
+
+<body>
+  {% block body %}
+    <script>
+        $(document).ready(function(){
+            alert("{{category}}");
+            $('#category option:contains("{{category}}")').prop("selected",true);
+        });
+    </script>
+    <div>
+        <select id="category" name="category" onchange="location=this.value" style="margin-left:500px">
+            <option value="{{url_for('view_restaurantlist', page=i, category='all')}}">All</option>
+            <option value="{{url_for('view_restaurantlist', page=i, category='한식')}}">한식</option>
+            <option value="{{url_for('view_restaurantlist', page=i, category='중식')}}">중식</option>
+            <option value="{{url_for('view_restaurantlist', page=i, category='일식')}}">일식</option>
+            <option value="{{url_for('view_restaurantlist', page=i, category='양식')}}">양식</option>
+            <option value="{{url_for('view_restaurantlist', page=i, category='카페/디저트')}}">카페/디저트</option>
+        </select>
+    </div>
+    {% if total > 0 %}
+    <p style="margin-left: 110px">
+        맛집 리스트 : 현재까지 {{total}}개 등록됨
+    </p>
+    
+    {% for data in datas %}
+    <div style="margin-left: 300px">
+        <p>
+            맛집 이름: {{data[1].name}}
+        </p>
+        <a href="/view_one_restaurant/{{data[1].name}}/"><img src = "/static/image/{{data[1].image_path}}"  alt = "음식사진"></a></div>
+    <a>------------</a>
+    {% endfor %}
+    
+    {% else %}
+    <p>
+        등록된 맛집이 없습니다.
+    </p>
+    {% endif %}
+    
+
+
+
+            <div class="page-wrap">
+                <div class="page-nation">
+                    <ul>
+                        <li>
+                            {% for i in range(page_count) %}
+                              <a href="{{url_for('view_restaurantlist', page=i)}}" color="black">{{i}}</a>
+                            {% endfor %}
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        {% endblock body%}
+</body>
+</html>
